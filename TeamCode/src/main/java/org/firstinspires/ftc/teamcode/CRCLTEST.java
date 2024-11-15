@@ -72,6 +72,10 @@ public class CRCLTEST extends LinearOpMode {
 
             telemetry.addData("GG", GG);
 
+            telemetry.addData("SR", SR);
+
+            telemetry.addData("SL", SL);
+
             telemetry.update();
 
 
@@ -108,6 +112,9 @@ public class CRCLTEST extends LinearOpMode {
             double R = gamepad1.right_stick_x;
             double S = gamepad2.left_stick_y;
             double K = gamepad2.left_stick_y;
+            double D = gamepad2.right_stick_y;
+            double J = gamepad2.right_stick_y;
+
             double slow = 1.5 - (0.7 * gamepad1.right_trigger);
 
             if (gamepad1.options) {
@@ -128,6 +135,9 @@ public class CRCLTEST extends LinearOpMode {
             double rightRearPower = ((rotY + rotX - R) / denominator) * slow;
             double centerleftPower = S * slow;
             double centerrightPower = K * slow;
+            double SlideLeftPower = D * slow;
+            double SliderightPower = J * slow;
+
 
 
             leftFront.setPower(leftFrontPower);
@@ -136,6 +146,9 @@ public class CRCLTEST extends LinearOpMode {
             rightRear.setPower(rightRearPower);
             centerleft.setPower(centerleftPower);
             centerright.setPower(centerrightPower);
+            SL.setPosition(SlideLeftPower);
+            SR.setPosition(SliderightPower);
+
 
             if (gamepad2.left_bumper) { // 장빈 버킷 집게
                 BG.setPosition(0.6);
@@ -149,33 +162,59 @@ public class CRCLTEST extends LinearOpMode {
                 GG.setPosition(0.95);
             }
 
-            if (gamepad2.dpad_down) { //장빈 기둥 1번째 버캣
-                BWL.setPosition(0.4);
-                BWR.setPosition(0.4);
-            }
-            if (gamepad2.dpad_up) { //장빈 기둥 2번째 버캣
-                centerleftPower = 3300;
-                centerrightPower = 3300;
 
-            }
+        }
+        if (gamepad2.dpad_down) {
+            targetPosition = 1340; // 장빈 1번째 버킷
+            centerleft.setTargetPosition(targetPosition);
+            centerright.setTargetPosition(targetPosition);
+            centerright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            centerleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            centerleft.setPower(1);
+            centerright.setPower(1);
+            currentPosition = centerleft.getCurrentPosition();
+            currentPosition = centerright.getCurrentPosition();
+            BWR.setPosition(0.65); // 바스켓에 넣기 좋은 각도
+            BWL.setPosition(0.65); // 바스켓에 넣기 좋은 각도
 
-            if (gamepad2.dpad_left) {
-
-            }
-            if (gamepad2.dpad_right) {
-
-
-            }
-
+        }
+        if (gamepad2.dpad_up) {
+            targetPosition = 3340; // 장빈 2번째 버킷
+            centerleft.setTargetPosition(targetPosition);
+            centerright.setTargetPosition(targetPosition);
+            centerright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            centerleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            centerleft.setPower(1);
+            centerright.setPower(1);
+            currentPosition = centerleft.getCurrentPosition();
+            currentPosition = centerright.getCurrentPosition();
+            BWR.setPosition(0.65); // 바스켓에 넣기 좋은 각도
+            BWL.setPosition(0.65); // 바스켓에 넣기 좋은 각도
+        }
+        if(gamepad1.y) {
+            GGR.setPosition(0.65);
+            GGL.setPosition(0.65);
+            SR.setPosition(0.54);
+            SL.setPosition(0.54);
+            GG.setPosition();
+            BG.setPosition();
+            WR.setPosition();
+            WL.setPosition();
+            BWR.setPosition();
+            BWL.setPosition();
+            //님아니마아닌아ㅣㅁ님아 이거 y키 누르면 gg에서 잡고 슬라이드로 이동해서 bg에서 잡도록 하고싶은데 먼가 이상하게 되가는거 같다
 
         }
     }
-
 }
 
+
+
+
     // 대호 차체를 움직임 밑 집게 손목 gamepad1
-    // 장빈 기둥 버켓 집게 팔목 손목 아래 팔 버켓 그리퍼 옮길때 손목값 gamepad2
-// centerleftPower = 1340; 둘다 장빈 기둥 1
+    // 장빈 팔목 손목 아래 팔 다 장빈 버켓 그리퍼 옮길때 손목값 gamepad2
+//// centerleftPower = 1340; 둘기둥 1
 // centerrightPower = 1340;
 
 //it git right?
+//y키 누르면 그리퍼 잡는거(패스) ㄱㄱ 할거임 어렵다
