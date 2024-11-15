@@ -177,3 +177,5 @@ public class CRCLTEST extends LinearOpMode {
     // 장빈 기둥 버켓 집게 팔목 손목 아래 팔 버켓 그리퍼 옮길때 손목값 gamepad2
 // centerleftPower = 1340; 둘다 장빈 기둥 1
 // centerrightPower = 1340;
+
+//it git right?
