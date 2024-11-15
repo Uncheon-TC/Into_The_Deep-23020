@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.opengl.GLDebugHelper;
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -45,6 +47,7 @@ public class CRCLTEST extends LinearOpMode {
 
         boolean swDowncurrent;
 
+
         int targetPosition = 0;
 
         int currentPosition = 0;
@@ -75,6 +78,10 @@ public class CRCLTEST extends LinearOpMode {
             telemetry.addData("SR", SR);
 
             telemetry.addData("SL", SL);
+
+            telemetry.addData("GGL", GGL);
+
+            telemetry.addData("GGR", GGR);
 
             telemetry.update();
 
@@ -114,6 +121,8 @@ public class CRCLTEST extends LinearOpMode {
             double K = gamepad2.left_stick_y;
             double D = gamepad2.right_stick_y;
             double J = gamepad2.right_stick_y;
+            double F = gamepad1.right_stick_y;
+            double H = gamepad1.right_stick_y;
 
             double slow = 1.5 - (0.7 * gamepad1.right_trigger);
 
@@ -137,6 +146,8 @@ public class CRCLTEST extends LinearOpMode {
             double centerrightPower = K * slow;
             double SlideLeftPower = D * slow;
             double SliderightPower = J * slow;
+            double WristLeftPower = F * slow;
+            double WristRightPower = H * slow;
 
 
 
@@ -146,10 +157,7 @@ public class CRCLTEST extends LinearOpMode {
             rightRear.setPower(rightRearPower);
             centerleft.setPower(centerleftPower);
             centerright.setPower(centerrightPower);
-            SL.setPosition(SlideLeftPower);
-            SR.setPosition(SliderightPower);
-
-
+            WristLeftPower = F * slow;
             if (gamepad2.left_bumper) { // 장빈 버킷 집게
                 BG.setPosition(0.6);
             } else {
@@ -191,27 +199,17 @@ public class CRCLTEST extends LinearOpMode {
             BWR.setPosition(0.65); // 바스켓에 넣기 좋은 각도
             BWL.setPosition(0.65); // 바스켓에 넣기 좋은 각도
         }
-        if(gamepad1.y) {
-            GGR.setPosition(0.65);
-            GGL.setPosition(0.65);
-            SR.setPosition(0.54);
-            SL.setPosition(0.54);
-            GG.setPosition();
-            BG.setPosition();
-            WR.setPosition();
-            WL.setPosition();
-            BWR.setPosition();
-            BWL.setPosition();
-            //님아니마아닌아ㅣㅁ님아 이거 y키 누르면 gg에서 잡고 슬라이드로 이동해서 bg에서 잡도록 하고싶은데 먼가 이상하게 되가는거 같다
+
+
+
 
         }
     }
-}
 
 
 
 
-    // 대호 차체를 움직임 밑 집게 손목 gamepad1
+    // 대호 차체를 움직임 밑 손목 gamepad1
     // 장빈 팔목 손목 아래 팔 다 장빈 버켓 그리퍼 옮길때 손목값 gamepad2
 //// centerleftPower = 1340; 둘기둥 1
 // centerrightPower = 1340;
