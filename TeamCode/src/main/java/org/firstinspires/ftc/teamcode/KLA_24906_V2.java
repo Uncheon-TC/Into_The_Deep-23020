@@ -31,6 +31,8 @@ public class KLA_24906_V2 extends LinearOpMode {
         Servo GGL = hardwareMap.servo.get("GGL"); // Ground Gripper Left Servo
         Servo GGR = hardwareMap.servo.get("GGR"); // Ground Gripper right Servo
         Servo WR = hardwareMap.servo.get("WR"); // Wrist right Servo
+        Servo GG = hardwareMap.servo.get("GG");
+        Servo BG = hardwareMap.servo.get("BG");
 
         IMU imu = hardwareMap.get(IMU.class, "imu");
 
@@ -66,7 +68,7 @@ public class KLA_24906_V2 extends LinearOpMode {
         boolean bwUpcurrent;
         boolean bwDownstatus = false;
         boolean bwDowncurrent;
-        float rtupstatus
+        float rtupstatus;
         int targetPosition = 0;
 
         int currentPosition = 0;
@@ -122,8 +124,10 @@ public class KLA_24906_V2 extends LinearOpMode {
             rightRear.setPower(rightRearPower);
 
 //GGR 0.5보다 크면 올라감. GGL 0.5보다 크면 올라감. WR 0.5보다 작아지면 올라감. SR 커지면 길어짐.
+
+
             if (gamepad2.dpad_up) {
-                targetPosition = 1350;
+                targetPosition = 1450;
                 centerleft.setTargetPosition(targetPosition);
                 centerright.setTargetPosition(targetPosition);
                 centerleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -131,20 +135,9 @@ public class KLA_24906_V2 extends LinearOpMode {
                 centerleft.setPower(0.8);
                 centerright.setPower(0.8);
 
-
             }
+
             if (gamepad2.dpad_down) {
-                targetPosition = 3100;
-                centerleft.setTargetPosition(targetPosition);
-                centerright.setTargetPosition(targetPosition);
-                centerleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                centerright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                centerleft.setPower(0.8);
-                centerright.setPower(0.8);
-
-            }
-
-            if (gamepad2.right_bumper) {
                 targetPosition = 50;
                 centerleft.setTargetPosition(targetPosition);
                 centerright.setTargetPosition(targetPosition);
@@ -153,6 +146,7 @@ public class KLA_24906_V2 extends LinearOpMode {
                 centerleft.setPower(0.8);
                 centerright.setPower(0.8);
             }
+
 
             if (gamepad2.left_bumper) {
                 targetPosition = 1150;
@@ -194,43 +188,26 @@ public class KLA_24906_V2 extends LinearOpMode {
             if (gamepad2.left_trigger != 0) {
                 BWR.setPosition(0.05);
             }
+            if (gamepad1.a)
+                WR.setPosition(0.45);
 
-            if (swUpcurrent == true && swUpcurrent != swUpstatus) {
-
-                wPOSITION += -0.05;
-
-                GGL.setPosition(wPOSITION);
-                GGR.setPosition(wPOSITION);
-
+            if (gamepad1.right_bumper) {
+                GG.setPosition(0.7);
             }
-            swUpstatus = swUpcurrent;
-
-            if (swDowncurrent == true && swDowncurrent != swDownstatus) {
-
-                wPOSITION += 0.05;
-
-                GGL.setPosition(wPOSITION);
-                GGR.setPosition(wPOSITION);
-
+            else{
+                GG.setPosition(1);
             }
-            if (bwUpcurrent == true && bwUpcurrent != bwUpstatus) {
 
-                bPosition += -0.05;
-
-                BWR.setPosition(bPosition);
-
+            if (gamepad2.b) {
+                BG.setPosition(1);
             }
-            bwUpstatus = bwDownstatus;
-
-            if (bwDowncurrent == true && bwDowncurrent != bwDownstatus) {
-
-                bPosition += 0.05;
-
-                BWR.setPosition(bPosition);
-
+            else{
+                BG.setPosition(0.7);
             }
 
 
-        }
+
+
+            }
     }
 }
