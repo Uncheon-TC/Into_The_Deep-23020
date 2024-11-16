@@ -189,7 +189,7 @@ public class KLA_24906_V2 extends LinearOpMode {
                 BWR.setPosition(0.05);
             }
             if (gamepad1.a)
-                WR.setPosition(0.48);
+                WR.setPosition(0.45);
 
             if (gamepad1.right_bumper) {
                 GG.setPosition(0.7);
