@@ -163,7 +163,7 @@ public class KLA_24906_V2 extends LinearOpMode {
                 SR.setPosition(0.8);
             }
             if (gamepad2.a) {
-                SR.setPosition(0.45);
+                SR.setPosition(0.4);
             }
 
             if (gamepad2.x) {
